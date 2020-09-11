@@ -1,0 +1,31 @@
+{
+  "name": "authentication",
+  "version": "1.0.0",
+  "description": "Server with user authentication and modularized routing/middleware",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brendon-401-advanced-javascript/authentication.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brendon-401-advanced-javascript/authentication/issues"
+  },
+  "homepage": "https://github.com/brendon-401-advanced-javascript/authentication#readme",
+  "devDependencies": {
+    "eslint": "^7.8.1"
+  },
+  "dependencies": {
+    "base-64": "^0.1.0",
+    "bcrypt": "^5.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.4"
+  }
+}
