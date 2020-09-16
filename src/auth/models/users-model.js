@@ -15,7 +15,7 @@ const users = mongoose.Schema({
 // presave password 
 users.pre('save', async function() {
     this.password = await bcrypt.hash(this.password, 5);
-    console.log('passwrod is:', this.password);
+    console.log('password is:', this.password);
 });
 
 // works with an instance

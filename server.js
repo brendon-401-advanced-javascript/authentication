@@ -1,10 +1,9 @@
 'use strict';
 
 // dependancies 
-
 const express = require('express');
-const user = require('../src/auth/models/users-model.js');
-const base64 = require('base-64');
+const basicAuth = require('./src/auth/middleware/basic.js')
+const users = require('./src/auth/models/users-model.js');
 
 const app = express();
 
@@ -46,25 +45,8 @@ app.post ('/signup', async (request, response, next) => {
 });
 
 // modularize this route using router method
-app.post('/signin', async (request,response,next) => {
-
-    try {
-        // get username and pass from user
-        // check the headers
-        let authorization = request.headers.authorization;
-        let encoded = authorization.split(' ')[1];
-        let creds = base64.decode(encoded);
-        let [username, password] = creds.split(":");
-
-        // get user instance from model
-        let userRecord = await users.validateBasic(username, password); 
-
-        // if ok send token
-        let token = userRecord.generateToken();
-    
-    } catch (e) {
-        next(e.message); 
-    }
+app.post('/signin',basicAuth, async (request,response,next) => {
+       response.status(200).send('you are logged in');
 });
 
 // 404 
