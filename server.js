@@ -4,6 +4,7 @@
 const express = require('express');
 const basicAuth = require('./src/auth/middleware/basic.js')
 const users = require('./src/auth/models/users-model.js');
+const signUp = require('./src/middelware/routes/router.js');
 
 const app = express();
 
@@ -13,40 +14,17 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 
-// modularize /signup post using router method
-app.post ('/signup', async (request, response, next) => {
-    try {
-        // username, password
-        // will be on req.body
-
-
-        // create data model object
-        let obj = {
-            username: request.body.username,
-            password: request.body.password
-        }
-
-        // create new schema instance using the object
-        let record = new users(obj);
-
-        // save the instance
-        let newUser = await record.save();
-
-        // create token
-        let token = record.generateToken();
-
-        // show token
-        response.status(201).send(token);
-
-    } catch (e) {
-        next(e.message);
-    }
-
+// modularize /signup post using middleware
+app.post ('/signup',signUp, async (request, response, next) => {
 });
 
-// modularize this route using router method
+// modularize this route using middleware
 app.post('/signin',basicAuth, async (request,response,next) => {
-       response.status(200).send('you are logged in');
+    let showUser = {
+        user:request.user,
+        token:request.token
+    }
+    response.status(200).send(showUser);
 });
 
 // 404 

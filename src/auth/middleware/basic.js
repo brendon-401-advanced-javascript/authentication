@@ -15,10 +15,12 @@ module.exports = async(request,response,next) => {
         let userRecord = await users.validateBasic(username, password); 
 
         // if ok send token
-        let token = userRecord.generateToken();
+        request.token = userRecord.generateToken();
+        
+        request.user = userRecord; 
         next();
     
     } catch (e) {
-        next(e.message); 
+        next('Invalid Username or password'); 
     }
 }
