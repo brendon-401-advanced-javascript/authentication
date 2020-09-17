@@ -5,7 +5,7 @@ const express = require('express');
 const basicAuth = require('./src/auth/middleware/basic.js')
 const users = require('./src/auth/models/users-model.js');
 const signUp = require('./src/middelware/routes/router.js');
-
+const router = require('./src/middelware/routes/router.js');
 const app = express();
 
 // middleware(global)
@@ -13,19 +13,22 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
+app.use(router);
+app.use(signUp);
 
-// modularize /signup post using middleware
-app.post ('/signup',signUp, async (request, response, next) => {
-});
 
-// modularize this route using middleware
-app.post('/signin',basicAuth, async (request,response,next) => {
-    let showUser = {
-        user:request.user,
-        token:request.token
-    }
-    response.status(200).send(showUser);
-});
+// modularize /signup post using router method
+// app.post ('/signup',signUp, async (request, response, next) => {
+// });
+
+// modularize this route using middleware method
+// app.post('/signin',basicAuth, async (request,response,next) => {
+//     let showUser = {
+//         user:request.user,
+//         token:request.token
+//     }
+//     response.status(200).send(showUser);
+// });
 
 // 404 
 app.use('*', (request, response, next) => {

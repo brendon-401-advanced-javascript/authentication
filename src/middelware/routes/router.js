@@ -1,9 +1,8 @@
 'use strict';
 const express = require('express');
-const app = express();
 const basicAuth = require('../../auth/middleware/basic.js')
 const signUp = require('../signUp.js');
-const router = app;
+const router = express.Router();
 
 
 router.post ('/signup',signUp, async (request, response, next) => {
