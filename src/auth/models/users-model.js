@@ -20,10 +20,11 @@ users.pre('save', async function() {
 // works with an instance
 users.methods.generateToken = function() {
     // use token object to add permissions
+    
     let tokenObject = {
         username:this.username,
     }
-    let token = jwt.sign(tokenObject, process.env.SECRET)
+    let token = jwt.sign(tokenObject, process.env.SECRET,{expiresIn:10000});
     return token;
 }
 
