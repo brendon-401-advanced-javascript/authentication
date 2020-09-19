@@ -24,7 +24,7 @@ users.methods.generateToken = function() {
     let tokenObject = {
         username:this.username,
     }
-    let token = jwt.sign(tokenObject, process.env.SECRET,{expiresIn:10000});
+    let token = jwt.sign(tokenObject, process.env.SECRET, {expiresIn:350});
     return token;
 }
 
