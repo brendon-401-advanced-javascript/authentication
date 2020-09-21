@@ -1,5 +1,4 @@
 'use strict';
-const { response } = require('express');
 const express = require('express');
 const basicAuth = require('../../auth/middleware/basic.js')
 const bearer = require('../../auth/middleware/bearer.js');
