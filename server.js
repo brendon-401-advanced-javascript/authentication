@@ -2,10 +2,9 @@
 
 // dependancies 
 const express = require('express');
-// const basicAuth = require('./src/auth/middleware/basic.js')
-// const users = require('./src/auth/models/users-model.js');
 const signUp = require('./src/middelware/routes/router.js');
 const router = require('./src/middelware/routes/router.js');
+
 const app = express();
 
 // middleware(global)
