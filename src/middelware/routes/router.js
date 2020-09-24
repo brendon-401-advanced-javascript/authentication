@@ -3,6 +3,7 @@ const express = require('express');
 const basicAuth = require('../../auth/middleware/basic.js')
 const bearer = require('../../auth/middleware/bearer.js');
 const signUp = require('../signUp.js');
+const can = require('../../auth/middleware/acl.js');
 const router = express.Router();
 
 
@@ -21,5 +22,9 @@ router.post('/signin',basicAuth, async (request,response,next) => {
 router.get('/secretarea', bearer, async(request, response,next) => {
     response.status(200).send(`Welcome to the Secret Area...${request.user.username}`);
 });
+
+router.get('/article', bearer, can('read'), (request,response) => {
+    response.status(200).send('you can read stuff');
+})
 
 module.exports = router; 

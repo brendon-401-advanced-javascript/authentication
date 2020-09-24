@@ -5,7 +5,8 @@ module.exports = async(request,response,next) => {
 
         let obj = {
             username: request.body.username,
-            password: request.body.password
+            password: request.body.password,
+            role: request.body.role
         }
 
         let record = new users(obj);

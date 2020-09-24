@@ -2,17 +2,17 @@
 
 const users = require('../models/users-model.js');
 
-module.exports = (request,response,next) => {
+module.exports = async(request,response,next) => {
 
     if(!request.headers.authorization) {
         next('invalid login');
     }
     let token = request.headers.authorization.split(' ')[1];
-    users.authenticateWToken(token)
-        .then (validate => {
+    let validate = await users.authenticateWToken(token)
+        try {
             request.user = validate;
             request.token = token;
             next();
-        })
-        .catch(error => next('invalid login'));
+        }catch{ (e) => 'Invalid Login';
+    }
 }

@@ -8,8 +8,16 @@ const jwt = require('jsonwebtoken');
 
 const users = mongoose.Schema({
     username: {type: String, required: true},
-    password: {type: String, required: true}
+    password: {type: String, required: true},
+    role: {type:String, required: true, default: 'regular', enum: ['regular', 'author', 'editor', 'admin']}
 });
+
+const roles = {
+    regular: ['read'],
+    writers: ['read', 'create'],
+    editors:['read', 'create', 'update'],
+    administrators:['read','create','update', 'delete']
+}
 
 // presave password 
 users.pre('save', async function() {
@@ -23,8 +31,10 @@ users.methods.generateToken = function() {
     
     let tokenObject = {
         username:this.username,
+        role:this.role,
+        permissions:roles[this.role]
     }
-    let token = jwt.sign(tokenObject, process.env.SECRET, {expiresIn:350});
+    let token = jwt.sign(tokenObject, process.env.SECRET);
     return token;
 }
 
