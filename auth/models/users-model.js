@@ -9,15 +9,25 @@ const jwt = require('jsonwebtoken');
 const users = mongoose.Schema({
     username: {type: String, required: true},
     password: {type: String, required: true},
+<<<<<<< HEAD:auth/models/users-model.js
     role: {type:String, required: true, default: 'regular', enum: ['regular', 'writer', 'editor', 'administrator']},
     info: {type:String, required: false, default: 'No info Available'}
+=======
+    role: {type:String, required: true, default: 'regular', enum: ['regular', 'author', 'editor', 'admin']}
+>>>>>>> 8ecf6d86ae5c30711fae26977df022afed19eb14:src/auth/models/users-model.js
 });
 
 const roles = {
     regular: ['read'],
+<<<<<<< HEAD:auth/models/users-model.js
     writer: ['read', 'create'],
     editor:['read', 'create', 'update'],
     administrator:['read','create','update', 'delete']
+=======
+    writers: ['read', 'create'],
+    editors:['read', 'create', 'update'],
+    administrators:['read','create','update', 'delete']
+>>>>>>> 8ecf6d86ae5c30711fae26977df022afed19eb14:src/auth/models/users-model.js
 }
 
 // presave password 

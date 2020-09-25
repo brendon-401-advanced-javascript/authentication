@@ -35,4 +35,5 @@ router.get('/article', bearer, can('delete'), (request,response) => {
     response.status(200).send('you can delete stuff');
 });
 
+
 module.exports = router; 
