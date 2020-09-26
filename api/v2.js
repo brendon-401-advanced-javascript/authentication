@@ -40,33 +40,50 @@ async function handleGetAll(request, response, next) {
         };
         response.status(200).json(output);
       }
-      catch(e) {
-        next('No Read Permissions');
-      }
+  catch(e) {
+      next('No Read Permissions');
+    }
 }
 
-function handleGetOne(request, response, next) {
-  request.model.get({ _id: request.params.id })
-    .then(result => response.status(200).json(result[0]))
-    .catch(next);
+async function handleGetOne(request, response, next) {
+  try {
+    let result = await request.model.get({ _id: request.params.id })
+      response.status(200).json(result[0]);
+    }
+  catch(e) {
+      next('No Read Permissions');
+    }
 }
 
-function handlePost(request, response, next) {
-  request.model.create(request.body)
-    .then(result => response.status(200).json(result))
-    .catch(next);
+async function handlePost(request, response, next) {
+  try {
+    let result = await request.model.create(request.body)
+      response.status(200).json(result);
+    }
+  catch(e){
+      next('No Create Permissions');
+    }
 }
 
-function handlePut(request, response, next) {
-  request.model.update(request.params.id, request.body)
-    .then(result => response.status(200).json(result))
-    .catch(next);
+async function handlePut(request, response, next) {
+  try {
+    let result = await request.model.update(request.params.id, request.body)
+      response.status(200).json(result);
+    }
+  catch(e){
+      next('NO Update Permissions');
+    }
 }
 
-function handleDelete(request, response, next) {
-  request.model.delete(request.params.id)
-    .then(result => response.status(200).json(result))
-    .catch(next);
+
+async function handleDelete(request, response, next) {
+  try {
+    let result = await request.model.delete(request.params.id)
+      response.status(200).json(result);
+    }
+  catch(e){
+      next('No Delete Permissions');
+    }
 }
 
 module.exports = router;
