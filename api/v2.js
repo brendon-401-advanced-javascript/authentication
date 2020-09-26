@@ -14,7 +14,7 @@ router.param('model', modelFinder.load);
 
 // Models List
 router.get('/models', (request, response) => {
-  console.log('hi there');
+
   modelFinder.list()
     .then(models => response.status(200).json(models));
 });
@@ -31,16 +31,18 @@ router.put('/:model/:id', bearer, can('update'), handlePut);
 router.delete('/:model/:id', bearer, can('delete'), handleDelete);
 
 // Route Handlers
-function handleGetAll(request, response, next) {
-  request.model.get(request.query)
-    .then(data => {
-      const output = {
-        count: data.length,
-        results: data,
-      };
-      response.status(200).json(output);
-    })
-    .catch(next);
+async function handleGetAll(request, response, next) {
+  try{
+    let result = await request.model.get(request.query);
+        const output = {
+          count: result.length,
+          results: result,
+        };
+        response.status(200).json(output);
+      }
+      catch(e) {
+        next('No Read Permissions');
+      }
 }
 
 function handleGetOne(request, response, next) {

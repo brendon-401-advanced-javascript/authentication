@@ -18,7 +18,6 @@ const roles = {
     writer: ['read', 'create'],
     editor:['read', 'create', 'update'],
     administrator:['read','create','update', 'delete']
-
 }
 
 // presave password 

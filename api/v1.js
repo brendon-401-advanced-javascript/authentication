@@ -13,7 +13,6 @@ router.param('model', modelFinder.load);
 
 // Models List
 router.get('/models', (request, response) => {
-  console.log('hi there');
   modelFinder.list()
     .then(models => response.status(200).json(models));
 });

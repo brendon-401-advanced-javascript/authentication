@@ -11,7 +11,6 @@ module.exports = async(request,response,next) => {
         }
 
         let record = new Users(obj);
-        console.log(record);
         // save the instance
         let newUser = await record.save();
 
