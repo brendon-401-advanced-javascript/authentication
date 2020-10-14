@@ -1,53 +1,27 @@
 'use strict';
 
 // dependancies 
+const cors = require('cors');
 const express = require('express');
-const basicAuth = require('./src/auth/middleware/basic.js')
-const users = require('./src/auth/models/users-model.js');
+// const signUp = require('./middelware/routes/router.js');
+const router = require('./middelware/routes/router.js');
+const v2Routes = require('./api/v2.js');
+
 
 const app = express();
 
 // middleware(global)
-
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
+app.use('/api/v2/', v2Routes);
 
-// modularize /signup post using router method
-app.post ('/signup', async (request, response, next) => {
-    try {
-        // username, password
-        // will be on req.body
+app.use(router);
+// app.use(signUp);
 
 
-        // create data model object
-        let obj = {
-            username: request.body.username,
-            password: request.body.password
-        }
 
-        // create new schema instance using the object
-        let record = new users(obj);
-
-        // save the instance
-        let newUser = await record.save();
-
-        // create token
-        let token = record.generateToken();
-
-        // show token
-        response.status(201).send(token);
-
-    } catch (e) {
-        next(e.message);
-    }
-
-});
-
-// modularize this route using router method
-app.post('/signin',basicAuth, async (request,response,next) => {
-       response.status(200).send('you are logged in');
-});
 
 // 404 
 app.use('*', (request, response, next) => {
