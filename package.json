@@ -31,6 +31,7 @@
     "jest": "^26.4.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.4",
+    "mongoose-schema-jsonschema": "^1.4.4",
     "superagent": "^6.1.0",
     "supergoose": "^0.2.6"
   }
