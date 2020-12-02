@@ -6,6 +6,7 @@ const express = require('express');
 // const signUp = require('./middelware/routes/router.js');
 const router = require('./middelware/routes/router.js');
 const v2Routes = require('./api/v2.js');
+const v1Routes = require('./api/v1.js');
 
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 app.use('/api/v2/', v2Routes);
+app.use('/api/v1/', v1Routes);
 
 app.use(router);
 // app.use(signUp);
@@ -29,9 +31,9 @@ app.use('*', (request, response, next) => {
 });
 
 // server error handler
-app.use((err,request,response, next) => {
-    response.status(500).send(err);
-});
+// app.use((err,request,response, next) => {
+//     response.status(500).send(err);
+// });
 
 module.exports = {
     app, 

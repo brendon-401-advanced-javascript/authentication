@@ -22,6 +22,7 @@ const roles = {
 
 // presave password 
 users.pre('save', async function() {
+    console.log('password', this.password);
     this.password = await bcrypt.hash(this.password, 5);
 });
 
@@ -46,9 +47,9 @@ users.methods.generateToken = function() {
 users.statics.validateBasic = async function (username, password) {
     // look up user
     let user = await this.findOne({username: username});
-
     // compare passwords
     let isValid = await bcrypt.compare(password, user.password)
+    console.log(isValid);
     if(isValid) {
         return user;
     } else {

@@ -11,7 +11,7 @@ router.post ('/signup',signUp, async (request, response, next) => {
 });
 
 // modularize this route using middleware
-router.post('/signin',basicAuth, async (request,response,next) => {
+router.post('/signin', bearer, async (request,response,next) => {
     let showUser = {
         user:request.user,
         token:request.token

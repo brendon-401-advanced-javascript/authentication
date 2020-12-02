@@ -10,6 +10,7 @@ module.exports = async(request,response,next) => {
         let encoded = authorization.split(' ')[1];
         let creds = base64.decode(encoded);
         let [username, password] = creds.split(":");
+        console.log(username, password);
 
         // get user instance from model
         let userRecord = await users.validateBasic(username, password); 
